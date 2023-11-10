@@ -30,6 +30,7 @@ function Feedback() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(product),
       }
@@ -37,14 +38,14 @@ function Feedback() {
     const res = await data.json();
     return res.data;
   };
-  const addMNewP = async (data: ProductType) => {
+  const addedP = async (data: ProductType) => {
     const product: Promise<ProductType> = await addNewProduct(data);
     const addedProduct: ProductType = await product;
     return addedProduct;
   };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    addMNewP(form);
+    addedP(form);
     router.push("/products");
   };
 

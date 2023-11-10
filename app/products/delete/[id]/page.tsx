@@ -21,8 +21,8 @@ export default function Delete() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
-        cache: "no-store",
       }
     );
     const res = await data.json();
