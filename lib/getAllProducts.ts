@@ -10,10 +10,7 @@ export type ProductType = {
 
 export const getAllProducts = async () => {
   try {
-    const data = await fetch(
-      `${baseURL ?? "http://localhost:3000"}/api/products`,
-      { cache: "no-store" }
-    );
+    const data = await fetch(`${baseURL}/api/products`, { cache: "no-store" });
     if (!data.ok) {
       throw new Error(data.statusText);
     }
