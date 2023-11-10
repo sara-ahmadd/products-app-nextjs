@@ -25,13 +25,12 @@ function Feedback() {
     const data = await fetch(
       `${
         process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/products` as string,
+      }/api/products`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-store",
         body: JSON.stringify(product),
       }
     );
