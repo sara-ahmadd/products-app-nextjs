@@ -15,8 +15,8 @@ export default async function ProductDetails({
   params: { productId: string };
 }) {
   const { productId } = params;
-  const data = await getProduct(productId);
-  const product = await data;
+  const product = await Product.findById(productId);
+  // const product = await data;
 
   if (!product) notFound();
   return (
