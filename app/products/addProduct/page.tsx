@@ -21,16 +21,34 @@ function Feedback() {
       [e.target.id]: e.target.value,
     });
   };
-
+  const addNewProduct = async (product: ProductType) => {
+    const data = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST
+      }/api/products` as string,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+        body: JSON.stringify(product),
+      }
+    );
+    const res = await data.json();
+    return res.data;
+  };
+  const addMNewP = async (data: ProductType) => {
+    const product: Promise<ProductType> = await addNewProduct(data);
+    const addedProduct: ProductType = await product;
+    return addedProduct;
+  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const p = await addNewProduct(form);
-    console.log(p);
+    addMNewP(form);
     router.push("/products");
   };
 
-
-  
   return (
     <form
       onSubmit={handleSubmit}

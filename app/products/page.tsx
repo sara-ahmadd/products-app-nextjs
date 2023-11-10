@@ -1,13 +1,13 @@
 import { ProductType, getAllProducts } from "@/lib/getAllProducts";
 import Product from "@/models/product";
 import { dbConnect } from "@/utils/mongo";
+import mongoose from "mongoose";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Products() {
-  // const data: Promise<ProductType[]> = await getAllProducts();
   await dbConnect();
   const prods: ProductType[] = await Product.find();
 

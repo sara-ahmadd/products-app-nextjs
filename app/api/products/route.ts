@@ -20,7 +20,7 @@ export async function GET(req: Request) {
       const product = await Product.findById(searchParams.get("id"));
       return NextResponse.json({ data: product });
     } else {
-      const prods = await Product.find();
+      const prods = await Product.find({});
       return NextResponse.json({ data: prods });
     }
   } catch (error) {
@@ -30,10 +30,16 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request, res: Response) {
   try {
-    // const origin = req.headers.get("origin");
     await dbConnect();
     const request = await req.json();
-    const product = await Product.create({ ...request });
+    const { title, image, description, price, category } = request;
+    const product = await Product.create({
+      title,
+      image,
+      description,
+      price,
+      category,
+    });
 
     return NextResponse.json({ data: product });
   } catch (error) {
@@ -67,7 +73,9 @@ export async function DELETE(req: Request, res: Response) {
     // const origin = req.headers.get("origin");
     await dbConnect();
     const { searchParams } = new URL(req.url);
-    const prod = await Product.findByIdAndDelete(searchParams.get("id"));
+    const prod = await Product.findOneAndDelete({
+      _id: searchParams.get("id"),
+    });
     return NextResponse.json({ data: prod });
   } catch (error) {
     console.log("Erorrrr");

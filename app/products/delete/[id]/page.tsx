@@ -10,12 +10,32 @@ export default function Delete() {
   //get the id from the url => 'http://localhost:3000/products/id'
   const id = path.slice(path.lastIndexOf("/") + 1);
 
-  const deleteProd = async (id: string) => {
-    const del = await deleteProduct(id);
-    console.log(del);
+  // const baseURL = process.env.DEV_HOST || process.env.PROD_HOST;
+
+  const deleteProduct = async (id: string) => {
+    const data = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST
+      }/api/products?id=${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
+    const res = await data.json();
+    return res.data;
   };
+
   useEffect(() => {
-    deleteProd(id);
+    const deleteP = async (id: string) => {
+      const productDeleted: Promise<ProductType> = await deleteProduct(id);
+      const p = await productDeleted;
+      return p;
+    };
+    deleteP(id);
   }, [id]);
 
   return (

@@ -5,6 +5,7 @@ export const allowedOrigins =
     ? [
         "https://products-app-nextjs-sara-ahmadd.vercel.app",
         "products-app-nextjs-sara-ahmadd.vercel.app",
+        "http://localhost:3000",
       ]
     : ["http://localhost:3000"];
 
@@ -12,7 +13,7 @@ export const middleware = (request: Request) => {
   //   const origin = request.headers.get("origin");
 
   const origin = request.headers.get("origin");
-  console.log(request.headers.get("origin"));
+  console.log("origin === ", origin);
 
   if (origin && !allowedOrigins.includes(origin)) {
     return new NextResponse(null, {

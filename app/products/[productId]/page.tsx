@@ -15,7 +15,8 @@ export default async function ProductDetails({
   params: { productId: string };
 }) {
   const { productId } = params;
-  const product = await Product.findById(productId);
+  await dbConnect();
+  const product = await Product.findOne({ _id: productId });
   // const product = await data;
 
   if (!product) notFound();

@@ -1,4 +1,5 @@
-const baseURL = process.env.DEV_HOST || process.env.PROD_HOST;
+const baseURL =
+  process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST;
 export type ProductType = {
   title: string;
   price: number;
@@ -10,7 +11,11 @@ export type ProductType = {
 
 export const getAllProducts = async () => {
   try {
-    const data = await fetch(`${baseURL}/api/products`, { cache: "no-store" });
+    const data = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST
+      }/api/products`
+    );
     if (!data.ok) {
       throw new Error(data.statusText);
     }
