@@ -1,13 +1,18 @@
 import { ProductType, getAllProducts } from "@/lib/getAllProducts";
+import Product from "@/models/product";
+import { dbConnect } from "@/utils/mongo";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Products() {
-  const data: Promise<ProductType[]> = await getAllProducts();
-  const res = await data;
+  // const data: Promise<ProductType[]> = await getAllProducts();
+  await dbConnect();
+  const prods: ProductType[] = await Product.find();
 
-  const content = (
+  if (!prods) notFound();
+  return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
       <Link
         href={"/"}
@@ -22,8 +27,8 @@ export default async function Products() {
         Add New Product
       </Link>
       <div className="flex gap-3 justify-center flex-wrap items-start w-full h-fit py-4">
-        {res && res.length > 0 ? (
-          res.map((p) => (
+        {prods?.length > 0 ? (
+          prods.map((p) => (
             <div
               key={p._id}
               className="border-2 rounded-md border-red-500 p-4 flex flex-col justify-between items-center w-fit h-fit"
@@ -34,8 +39,9 @@ export default async function Products() {
               >
                 <h1>{p.title}</h1>
                 <Image
-                  loading="lazy"
+                  // loading="lazy"
                   src={p.image ?? "/skirt.jpg"}
+                  priority={true}
                   width={200}
                   height={200}
                   alt={p.title}
@@ -52,5 +58,4 @@ export default async function Products() {
       </div>
     </div>
   );
-  return content;
 }

@@ -9,14 +9,20 @@ export type ProductType = {
 };
 
 export const getAllProducts = async () => {
-  const data = await fetch(`${baseURL}/api/products` as string, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
-  const res = await data.json();
-
-  return res.data;
+  try {
+    const data = await fetch(
+      `${baseURL ?? "http://localhost:3000"}/api/products`,
+      { cache: "no-store" }
+    );
+    if (!data.ok) {
+      throw new Error(data.statusText);
+    }
+    const res = await data.json();
+    if (!res) {
+      throw new Error(`Cannot fetch data from : ${baseURL}/api/products`);
+    }
+    return res.data;
+  } catch (error) {
+    throw new Error("Error on fetching data from api...");
+  }
 };

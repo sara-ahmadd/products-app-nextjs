@@ -2,6 +2,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { addNewProduct } from "@/lib/addNewProduct";
+import { ProductType } from "@/lib/getAllProducts";
 
 const initState = {
   title: "",
@@ -23,9 +24,13 @@ function Feedback() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await addNewProduct(form);
+    const p = await addNewProduct(form);
+    console.log(p);
     router.push("/products");
   };
+
+
+  
   return (
     <form
       onSubmit={handleSubmit}

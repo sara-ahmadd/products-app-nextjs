@@ -2,15 +2,17 @@
 import { deleteProduct } from "@/lib/deleteProduct";
 import { ProductType } from "@/lib/getAllProducts";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 export default function Delete() {
   const path = usePathname();
   //get the id from the url => 'http://localhost:3000/products/id'
   const id = path.slice(path.lastIndexOf("/") + 1);
+
   const deleteProd = async (id: string) => {
-    await deleteProduct(id);
+    const del = await deleteProduct(id);
+    console.log(del);
   };
   useEffect(() => {
     deleteProd(id);

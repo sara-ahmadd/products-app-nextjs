@@ -14,13 +14,10 @@ export type ProductType = {
 
 export async function GET(req: Request) {
   try {
-    // const origin = req.headers.get("origin");
-
     await dbConnect();
-
     const { searchParams } = new URL(req.url);
-    if (searchParams.has("productId")) {
-      const product = await Product.findById(searchParams.get("productId"));
+    if (searchParams.has("id")) {
+      const product = await Product.findById(searchParams.get("id"));
       return NextResponse.json({ data: product });
     } else {
       const prods = await Product.find();
@@ -40,14 +37,6 @@ export async function POST(req: Request, res: Response) {
 
     return NextResponse.json({ data: product });
   } catch (error) {
-    // return new NextResponse(JSON.stringify({ msg: "error" }), {
-    //   status: 400,
-    //   statusText: "Bad Request..",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": origin || "*",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
     console.log(error);
   }
 }
@@ -69,35 +58,18 @@ export async function PUT(req: Request, res: Response) {
 
     return NextResponse.json({ data: product });
   } catch (error) {
-    // return new NextResponse(JSON.stringify({ msg: error }), {
-    //   status: 400,
-    //   statusText: "Bad Request..",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": origin || "*",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
     console.log(error);
   }
 }
 
 export async function DELETE(req: Request, res: Response) {
   try {
-    const origin = req.headers.get("origin");
+    // const origin = req.headers.get("origin");
     await dbConnect();
     const { searchParams } = new URL(req.url);
     const prod = await Product.findByIdAndDelete(searchParams.get("id"));
     return NextResponse.json({ data: prod });
   } catch (error) {
-    throw new Error("Big Erorrrrrr");
-    // return new NextResponse(JSON.stringify({ msg: error }), {
-    //   status: 400,
-    //   statusText: "Bad Request..",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": origin || "*",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    console.log("Big Erorrrr");
+    console.log("Erorrrr");
   }
 }

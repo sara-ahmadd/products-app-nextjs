@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 
 export const allowedOrigins =
   process.env.NODE_ENV === "production"
-    ? ["https://www.domain.com", "https://domain.com"]
+    ? [
+        "https://products-app-nextjs-sara-ahmadd.vercel.app",
+        "products-app-nextjs-sara-ahmadd.vercel.app",
+      ]
     : ["http://localhost:3000"];
 
 export const middleware = (request: Request) => {
