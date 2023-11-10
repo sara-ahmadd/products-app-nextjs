@@ -18,9 +18,14 @@ export async function GET(req: Request) {
 
     await dbConnect();
 
-    const prods = await Product.find()
-
-    return NextResponse.json({ data: prods });
+    const { searchParams } = new URL(req.url);
+    if (searchParams.has("productId")) {
+      const product = await Product.findById(searchParams.get("productId"));
+      return NextResponse.json({ data: product });
+    } else {
+      const prods = await Product.find();
+      return NextResponse.json({ data: prods });
+    }
   } catch (error) {
     throw new Error("Big Erorrrrrr");
   }

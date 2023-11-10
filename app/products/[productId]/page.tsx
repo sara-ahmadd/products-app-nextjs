@@ -14,7 +14,7 @@ export default async function ProductDetails({
   params: { productId: string };
 }) {
   const { productId } = params;
-  const p = await Product.findById(productId);
+  const p = await getProduct(productId);
   if (!p) notFound();
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center p-0">
