@@ -9,8 +9,8 @@ import React from "react";
 
 export default async function Products() {
   await dbConnect();
-  const prods = Product.find();
-
+  const products = Product.find();
+  const prods: ProductType[] = await products;
   if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
