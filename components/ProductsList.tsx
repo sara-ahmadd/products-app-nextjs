@@ -7,31 +7,23 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
-export const getServerSideProps = async () => {
-  await dbConnect();
-  try {
-    const prods: ProductType[] = await Product.find();
-    return { props: { prods } };
-  } catch (error) {
-    throw new Error("Error on fetching data in /products page.");
-  }
-};
-
+// export const getServerSideProps = async () => {
+//   await dbConnect();
+//   try {
+//     const prods: ProductType[] = await Product.find();
+//     return { props: { prods } };
+//   } catch (error) {
+//     throw new Error("Error on fetching data in /products page.");
+//   }
+// };
 
 export default async function ProductsList({
   prods,
 }: {
   prods: ProductType[];
 }) {
-  if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
-      <Link
-        href={"/"}
-        className="p-5 w-44 h-20 text-center hover:text-white hover:bg-red-500 transition-all border-red-500 rounded-md border-2 text-2xl font-semibold"
-      >
-        Home
-      </Link>
       <Link
         href={"/products/addProduct"}
         className="p-5 w-fit h-20 text-center hover:text-white hover:bg-red-500 transition-all border-red-500 rounded-md border-2 text-2xl font-semibold"
