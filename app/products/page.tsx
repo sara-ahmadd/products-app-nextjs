@@ -56,7 +56,7 @@ export default async function Products({ prods }: { prods: ProductType[] }) {
     </div>
   );
 }
-export const getServersideProps = async () => {
+export const getServerSideProps = async () => {
   try {
     const data: Promise<ProductType[]> = await getAllProducts();
     const prods = await data;
