@@ -13,8 +13,8 @@ export type ProductType = {
 };
 
 export async function GET(req: Request) {
+  await dbConnect();
   try {
-    await dbConnect();
     const { searchParams } = new URL(req.url);
     if (searchParams.has("id")) {
       const product = await Product.findById(searchParams.get("id"));
@@ -29,8 +29,8 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request, res: Response) {
+  await dbConnect();
   try {
-    await dbConnect();
     const request = await req.json();
     const { title, image, description, price, category } = request;
     const product = await Product.create({
@@ -48,9 +48,9 @@ export async function POST(req: Request, res: Response) {
 }
 
 export async function PUT(req: Request, res: Response) {
+  await dbConnect();
   try {
     const origin = req.headers.get("origin");
-    await dbConnect();
     const { searchParams } = new URL(req.url);
     const request = await req.json();
     const product = await Product.findByIdAndUpdate(
@@ -69,9 +69,9 @@ export async function PUT(req: Request, res: Response) {
 }
 
 export async function DELETE(req: Request, res: Response) {
+  await dbConnect();
   try {
     // const origin = req.headers.get("origin");
-    await dbConnect();
     const { searchParams } = new URL(req.url);
     const prod = await Product.findOneAndDelete({
       _id: searchParams.get("id"),
