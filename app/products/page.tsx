@@ -7,16 +7,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { useEffect } from "react";
 
-export const getServersideProps = async () => {
-  await dbConnect();
-  try {
-    const prods = await Product.find();
-    return { props: { prods } };
-  } catch (error) {
-    throw new Error("Error on fetching data in /products page.");
-  }
-};
-
 export default async function Products({ prods }: { prods: ProductType[] }) {
   if (!prods) notFound();
   return (
@@ -66,3 +56,12 @@ export default async function Products({ prods }: { prods: ProductType[] }) {
     </div>
   );
 }
+export const getServersideProps = async () => {
+  try {
+    const data: Promise<ProductType[]> = await getAllProducts();
+    const prods = await data;
+    return { props: { prods } };
+  } catch (error) {
+    throw new Error("Error on fetching data in /products page.");
+  }
+};
