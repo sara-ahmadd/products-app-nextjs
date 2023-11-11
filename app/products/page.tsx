@@ -7,7 +7,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { useEffect } from "react";
 
-export default async function Products({ prods }: { prods: ProductType[] }) {
+export default async function Products() {
+  const getAll = async () => {
+    try {
+      const data: Promise<ProductType[]> = await getAllProducts();
+      const prods = await data;
+      return prods;
+    } catch (error) {
+      throw new Error("Error on fetching data in /products page.");
+    }
+  };
+  const prods = await getAll();
   if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
@@ -56,12 +66,3 @@ export default async function Products({ prods }: { prods: ProductType[] }) {
     </div>
   );
 }
-export const getServerSideProps = async () => {
-  try {
-    const data: Promise<ProductType[]> = await getAllProducts();
-    const prods = await data;
-    return { props: { prods } };
-  } catch (error) {
-    throw new Error("Error on fetching data in /products page.");
-  }
-};
