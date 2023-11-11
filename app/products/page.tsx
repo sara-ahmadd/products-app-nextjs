@@ -18,10 +18,6 @@ export default async function Products() {
     }
   };
 
-  useEffect(() => {
-    getAll();
-  }, []);
-
   const prods = await getAll();
   if (!prods) notFound();
   return (
