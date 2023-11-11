@@ -9,7 +9,7 @@ import React from "react";
 
 export default async function Products() {
   await dbConnect();
-  const prods: ProductType[] = await Product.find();
+  const prods = Product.find();
 
   if (!prods) notFound();
   return (
