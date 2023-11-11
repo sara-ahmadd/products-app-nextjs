@@ -7,18 +7,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { useEffect } from "react";
 
-export default async function Products() {
-  const getAll = async () => {
-    await dbConnect();
-    try {
-      const data = await Product.find();
-      return data;
-    } catch (error) {
-      throw new Error("Error on fetching data in /products page.");
-    }
-  };
+export const getServersideProps = async () => {
+  await dbConnect();
+  try {
+    const prods = await Product.find();
+    return { props: { prods } };
+  } catch (error) {
+    throw new Error("Error on fetching data in /products page.");
+  }
+};
 
-  const prods = await getAll();
+export default async function Products({ prods }: { prods: ProductType[] }) {
   if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
