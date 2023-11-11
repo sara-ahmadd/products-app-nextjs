@@ -1,3 +1,4 @@
+"use client";
 import { ProductType, getAllProducts } from "@/lib/getAllProducts";
 import Product from "@/models/product";
 import { dbConnect } from "@/utils/mongo";
@@ -5,19 +6,33 @@ import mongoose from "mongoose";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+const initProduct: ProductType = {
+  title: "",
+  description: "",
+  image: "",
+  category: "",
+  price: 0,
+  _id: "",
+};
+export default function Products() {
+  const [prods, setProds] = useState([initProduct]);
+  useEffect(() => {
+    const getAll = async () => {
+      // await dbConnect();
+      // try {
+      //   const data: ProductType[] = await Product.find();
+      //   setProds(data);
+      // } catch (error) {
+      //   throw new Error("Error on fetching data in /products page.");
+      // }
+      const data: Promise<ProductType[]> = await getAllProducts();
+      const products = await data;
+      setProds(products);
+    };
+    getAll();
+  }, []);
 
-export default async function Products({ params }: { params: any }) {
-  const getAll = async () => {
-    await dbConnect();
-    try {
-      const data: ProductType[] = await Product.find();
-      return data;
-    } catch (error) {
-      throw new Error("Error on fetching data in /products page.");
-    }
-  };
-  const prods = await getAll();
   if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
