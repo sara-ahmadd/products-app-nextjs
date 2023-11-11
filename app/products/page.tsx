@@ -6,10 +6,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
-
+const baseURL =
+  process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST;
 export default async function Products() {
-  await dbConnect();
-  const prods: ProductType[] = await Product.find();
+  const getAllProducts = async () => {
+    try {
+      const data = await fetch(`${baseURL}/api/products`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      if (!data.ok) {
+        throw new Error(data.statusText);
+      }
+      const res = await data.json();
+      if (!res) {
+        throw new Error(`Cannot fetch data from : ${baseURL}/api/products`);
+      }
+      return res.data;
+    } catch (error) {
+      throw new Error("Error on fetching data from api...");
+    }
+  };
+  const data: Promise<ProductType[]> = await getAllProducts();
+  const prods: ProductType[] = await data;
+
   if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
