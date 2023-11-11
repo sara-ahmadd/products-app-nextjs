@@ -29,7 +29,8 @@ export default async function Products() {
         throw new Error("Error on fetching data in /products page.");
       }
     };
-  });
+    getAll();
+  }, []);
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
