@@ -23,7 +23,7 @@ export default async function ProductDetails({
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center p-0">
       <Link
-        href={"/"}
+        href={"/products"}
         className="p-5 w-44 text-center h-20 hover:text-white hover:bg-red-500 transition-all border-red-500 rounded-md border-2 text-2xl font-semibold"
       >
         Products

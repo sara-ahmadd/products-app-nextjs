@@ -44,7 +44,7 @@ export default function Delete() {
         <h2 className="card-title">Success</h2>
         <p>You deleted a product.</p>
         <div className="card-actions justify-end">
-          <Link href={"/"} className="btn btn-primary text-center">
+          <Link href={"/products"} className="btn btn-primary text-center">
             Products
           </Link>
         </div>

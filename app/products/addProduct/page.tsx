@@ -46,7 +46,7 @@ function Feedback() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     addedP(form);
-    router.push("/");
+    router.push("/products");
   };
 
   return (
