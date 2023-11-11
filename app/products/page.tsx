@@ -8,9 +8,12 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Products() {
-  await dbConnect();
-  const products = Product.find();
-  const prods: ProductType[] = await products;
+  const getAll = async () => {
+    await dbConnect();
+    const products = await Product.find();
+    return products;
+  };
+  const prods: ProductType[] = await getAll();
   if (!prods) notFound();
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
