@@ -9,10 +9,10 @@ import React, { useEffect } from "react";
 
 export default async function Products() {
   const getAll = async () => {
+    await dbConnect();
     try {
-      const data: Promise<ProductType[]> = await getAllProducts();
-      const prods = await data;
-      return prods;
+      const data: ProductType[] = await Product.find();
+      return data;
     } catch (error) {
       throw new Error("Error on fetching data in /products page.");
     }
