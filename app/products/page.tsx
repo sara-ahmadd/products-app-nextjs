@@ -5,16 +5,32 @@ import mongoose from "mongoose";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+const initProduct: ProductType = {
+  title: "",
+  image: "",
+  description: "",
+  price: 0,
+  _id: "",
+  category: "",
+};
 
 export default async function Products() {
-  // const getAll = async () => {
-  //   await dbConnect();
-  //   const products = await Product.find();
-  //   return products;
-  // };
-  const prods: ProductType[] = await getAllProducts();
-  if (!prods) notFound();
+  const [prods, setProds] = useState([initProduct]);
+  useEffect(() => {
+    const getAll = async () => {
+      await dbConnect();
+      try {
+        const data: ProductType[] = await Product.find();
+        setProds(data);
+        return data;
+      } catch (error) {
+        throw new Error("Error on fetching data in /products page.");
+      }
+    };
+  });
+
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
       <Link
