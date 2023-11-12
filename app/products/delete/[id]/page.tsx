@@ -17,7 +17,7 @@ export default function Delete() {
     };
     deleteP(id);
     router.refresh();
-  }, [id]);
+  }, [id, router]);
   return (
     <div className="card card-compact w-96 bg-base-100 shadow-xl mx-3 sm:mx-auto my-14">
       <div className="card-body">
