@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const revalidateProductsPath = async () => {
       await fetch(
-        `${baseURL}/api/revalidate?path=/products&secret=${process.env.NEXT_PUBLIC_MY_TOKEN}`
+        `${baseURL}/api/revalidate?path=/products&secret=d2c5a9e4863d0d323fee83a105d49ae4`
       );
     };
     revalidateProductsPath();
