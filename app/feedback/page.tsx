@@ -18,7 +18,9 @@ function Feedback() {
     });
   };
   const baseURL =
-    process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST;
+    process.env.NODE_ENV === "development"
+      ? process.env.NEXT_PUBLIC_DEV_HOST
+      : process.env.NEXT_PUBLIC_PROD_HOST;
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const d = fetch(`${baseURL}/api/feedback`, {
