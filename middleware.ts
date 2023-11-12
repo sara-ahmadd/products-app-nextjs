@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 export const allowedOrigins =
   process.env.NODE_ENV === "production"
     ? [
-        "https://products-app-nextjs-sara-ahmadd.vercel.app",
-        "products-app-nextjs-sara-ahmadd.vercel.app",
+        "https://products-app-nextjs-sara-ahmad.vercel.app",
+        "products-app-nextjs-sara-ahmad.vercel.app",
         "http://localhost:3000",
       ]
     : ["http://localhost:3000"];
