@@ -12,7 +12,6 @@ export default async function Products() {
   if (!prods) notFound();
   return (
     <div className="flex gap-3 justify-center items-center w-full h-fit px-3">
-      <Refresh />
       <div className="flex flex-col gap-3 justify-center items-center w-full h-fit">
         <Link
           href={"/"}
