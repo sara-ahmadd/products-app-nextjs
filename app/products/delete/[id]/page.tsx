@@ -3,13 +3,13 @@ import { deleteProduct } from "@/lib/deleteProduct";
 import { ProductType } from "@/lib/getAllProducts";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 
 export default function Delete() {
   const path = usePathname() as string;
-
+  const router = useRouter();
   const id = path.slice(path.lastIndexOf("/") + 1);
-
+  const [pending, startTransition] = useTransition();
   useEffect(() => {
     const deleteP = async (id: string) => {
       const productDeleted: Promise<ProductType> = await deleteProduct(id);
@@ -18,7 +18,9 @@ export default function Delete() {
     };
     deleteP(id);
   }, [id]);
-
+  startTransition(() => {
+    router.refresh();
+  });
   return (
     <div className="card card-compact w-96 bg-base-100 shadow-xl mx-3 sm:mx-auto my-14">
       <div className="card-body">

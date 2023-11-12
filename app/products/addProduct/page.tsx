@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addNewProduct } from "@/lib/addNewProduct";
 import { ProductType } from "@/lib/getAllProducts";
@@ -14,6 +14,7 @@ const initState = {
 
 function Feedback() {
   const [form, setFrom] = useState(initState);
+  const [pending, startTransition] = useTransition();
   const router = useRouter();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFrom({
@@ -30,9 +31,11 @@ function Feedback() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     addedP(form);
-    router.replace("/products");
+    router.push("/products");
   };
-
+  startTransition(() => {
+    router.refresh();
+  });
   return (
     <form
       onSubmit={handleSubmit}
