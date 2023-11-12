@@ -1,14 +1,10 @@
 import Refresh from "@/components/Refresh";
 import { ProductType, getAllProducts } from "@/lib/getAllProducts";
-import Product from "@/models/product";
-import { dbConnect } from "@/utils/mongo";
-import mongoose from "mongoose";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
-const baseURL =
-  process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST;
+
 export default async function Products() {
   const data: Promise<ProductType[]> = await getAllProducts();
   const prods: ProductType[] = await data;
