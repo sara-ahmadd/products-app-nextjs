@@ -6,11 +6,10 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 export default function Delete() {
-  const path = usePathname();
-  //get the id from the url => 'http://localhost:3000/products/id'
+  const path = usePathname() as string;
+
   const id = path.slice(path.lastIndexOf("/") + 1);
 
-  
   useEffect(() => {
     const deleteP = async (id: string) => {
       const productDeleted: Promise<ProductType> = await deleteProduct(id);

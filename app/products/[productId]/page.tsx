@@ -15,9 +15,9 @@ export default async function ProductDetails({
   params: { productId: string };
 }) {
   const { productId } = params;
+  
   await dbConnect();
   const product = await Product.findOne({ _id: productId });
-  // const product = await data;
 
   if (!product) notFound();
   return (
@@ -53,8 +53,8 @@ export default async function ProductDetails({
   );
 }
 
-// export async function generateStaticParams() {
-//   const data: Promise<ProductType[]> = await getAllProducts();
-//   const products: ProductType[] = await data;
-//   return products.map((p) => ({ productId: p._id }));
-// }
+export async function generateStaticParams() {
+  const data: Promise<ProductType[]> = await getAllProducts();
+  const products: ProductType[] = await data;
+  return products.map((p) => ({ productId: p._id }));
+}
