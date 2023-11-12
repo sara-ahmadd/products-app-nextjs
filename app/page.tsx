@@ -9,7 +9,6 @@ export default function Home() {
       <h1 className="w-fit h-44 mx-auto">Shop now🛒</h1>
       <Link
         href={"/products"}
-        prefetch={false}
         className="p-5 w-44 h-20 text-center hover:text-white hover:bg-red-500 transition-all border-red-500 rounded-md border-2 text-2xl font-semibold"
       >
         Products

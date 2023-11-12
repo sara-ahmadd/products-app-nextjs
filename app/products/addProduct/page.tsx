@@ -21,7 +21,7 @@ function Feedback() {
       [e.target.id]: e.target.value,
     });
   };
-  
+
   const addedP = async (data: ProductType) => {
     const product: Promise<ProductType> = await addNewProduct(data);
     const addedProduct: ProductType = await product;
@@ -30,7 +30,7 @@ function Feedback() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     addedP(form);
-    router.push("/products");
+    router.replace("/products");
   };
 
   return (
