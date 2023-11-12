@@ -1,4 +1,5 @@
-const baseURL = process.env.DEV_HOST || process.env.PROD_HOST;
+const baseURL =
+  process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST;
 
 export const getProduct = async (id: string) => {
   const data = await fetch(`${baseURL}/api/products?id=${id}`, {

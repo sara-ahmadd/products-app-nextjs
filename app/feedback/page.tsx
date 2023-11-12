@@ -17,10 +17,11 @@ function Feedback() {
       [e.target.id]: e.target.value,
     });
   };
-
+  const baseURL =
+    process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST;
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const d = fetch("http://localhost:3000/api/feedback", {
+    const d = fetch(`${baseURL}/api/feedback`, {
       method: "POST",
       headers: { Content: "Application/json" },
       body: JSON.stringify(form),
