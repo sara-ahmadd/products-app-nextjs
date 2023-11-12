@@ -2,7 +2,7 @@ import Refresh from "@/components/Refresh";
 import { ProductType, getAllProducts } from "@/lib/getAllProducts";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import React from "react";
 
 export default async function Products() {
