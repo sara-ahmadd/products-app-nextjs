@@ -10,7 +10,6 @@ export type ProductType = {
 };
 
 export const getAllProducts = async () => {
-  console.log(baseURL);
   try {
     const data = await fetch(`${baseURL}/api/products`, {
       headers: {
