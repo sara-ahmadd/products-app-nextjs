@@ -10,12 +10,15 @@ export type ProductType = {
 };
 
 export const getAllProducts = async () => {
+  console.log(baseURL);
   try {
-    const data = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/products`
-    );
+    const data = await fetch(`${baseURL}/api/products`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      cache: "no-store",
+    });
     if (!data.ok) {
       throw new Error(data.statusText);
     }
@@ -25,6 +28,6 @@ export const getAllProducts = async () => {
     }
     return res.data;
   } catch (error) {
-    throw new Error("Error on fetching data from api...");
+    console.log(error);
   }
 };

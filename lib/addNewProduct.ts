@@ -5,13 +5,15 @@ const url = `${baseURL}/api/products`;
 
 export const addNewProduct = async (product: ProductType) => {
   const data = await fetch(
-    `${process.env.DEV_HOST || process.env.PROD_HOST}/api/products` as string,
+    `${
+      process.env.NEXT_PUBLIC_DEV_HOST || process.env.NEXT_PUBLIC_PROD_HOST
+    }/api/products`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
-      cache: "no-store",
       body: JSON.stringify(product),
     }
   );

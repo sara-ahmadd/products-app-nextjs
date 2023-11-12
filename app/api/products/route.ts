@@ -15,14 +15,8 @@ export type ProductType = {
 export async function GET(req: Request) {
   await dbConnect();
   try {
-    const { searchParams } = new URL(req.url);
-    if (searchParams.has("id")) {
-      const product = await Product.findById(searchParams.get("id"));
-      return NextResponse.json({ data: product });
-    } else {
-      const prods = await Product.find({});
-      return NextResponse.json({ data: prods });
-    }
+    const prods = await Product.find();
+    return NextResponse.json({ data: prods });
   } catch (error) {
     throw new Error("Big Erorrrrrr");
   }
